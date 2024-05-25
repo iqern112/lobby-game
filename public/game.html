@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Room</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Game Room</h1>
+        <div id="players-list">
+            <!-- Player list will be dynamically generated here -->
+        </div>
+        <div id="game-board">
+            <!-- Game board will be here -->
+        </div>
+        <button id="back-to-lobby-btn">Back to Lobby</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "chess-game-app",
+  "version": "1.0.0",
+  "description": "A multiplayer chess game application with lobby and game room",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.1.3",
+    "uuid": "^8.3.2"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
