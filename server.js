@@ -22,6 +22,7 @@ io.on('connection', (socket) => {
         games.push(newGame);
         socket.join(gameId);
         io.emit('gameList', games);
+        socket.emit('gameCreated', gameId);
     });
 
     socket.on('requestGameList', () => {

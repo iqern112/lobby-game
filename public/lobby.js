@@ -4,6 +4,10 @@ document.getElementById('new-game-btn').addEventListener('click', () => {
     socket.emit('createGame');
 });
 
+socket.on('gameCreated', (gameId) => {
+    window.location.href = `/game.html?gameId=${gameId}`;
+});
+
 socket.on('gameList', (games) => {
     const gameListDiv = document.getElementById('game-list');
     gameListDiv.innerHTML = '';
