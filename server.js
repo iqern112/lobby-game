@@ -11,7 +11,12 @@ const port = process.env.PORT || 3000;
 
 let games = [];
 
-app.use(express.static('public'));
+app.use(express.static('public')); // เสิร์ฟไฟล์สแตติกจากโฟลเดอร์ public
+
+// เส้นทางสำหรับหน้าหลัก
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/lobby.html'); // หรือไฟล์ HTML ที่คุณต้องการ
+});
 
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
@@ -36,6 +41,7 @@ io.on('connection', (socket) => {
             socket.join(gameId);
             io.to(gameId).emit('gameUpdate', game);
             io.emit('gameList', games);
+            socket.emit('roomJoined', { gameId });
         }
     });
 

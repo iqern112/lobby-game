@@ -19,3 +19,8 @@ socket.on('gameUpdate', (gameState) => {
 
     // Render the game board using gameState (if needed)
 });
+
+socket.on('roomJoined', ({ gameId }) => {
+    const roomIdDiv = document.getElementById('room-id');
+    roomIdDiv.innerText = `Room ID: ${gameId}`;
+});
