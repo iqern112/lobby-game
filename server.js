@@ -18,30 +18,31 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/lobby.html'); // หรือไฟล์ HTML ที่คุณต้องการ
 });
 
-io.on('connection', (socket) => {
+io.on('connection', (socket) => {// io.on คือ เมื่อการตอบกลับจากทุกคนที่ต่อกับ server
     console.log(`User connected: ${socket.id}`);
 
     socket.on('createGame', () => {
         const gameId = `game-${uuidv4()}`;
         const newGame = { id: gameId, players: [{ id: socket.id }] };
-        games.push(newGame);
-        socket.join(gameId);
-        io.emit('gameList', games);
-        socket.emit('gameCreated', gameId);
+        games.push(newGame);//เพิ่มตัวแปร newGame in arry games
+        socket.join(gameId);//join a person who create a game
+        io.emit('gameList', games);//ส่งข้อมูลให้ทุกคนที่เชื่อมต่อเซิฟเวอร์
+        socket.emit('gameCreated', gameId);//ส่งข้อมูลให้เฉพาะคนที่เป็นผู้สร้างเกม
     });
 
-    socket.on('requestGameList', () => {
-        socket.emit('gameList', games);
+    socket.on('requestGameList', () => {//เมื่อได้รับ requestGameList จาก user คนนั้นๆ
+        socket.emit('gameList', games);//จะทำการส่ง gameList กลับไป พร้อมกับ paramiter games
     });
 
-    socket.on('joinGame', ({ gameId }) => {
-        const game = games.find(g => g.id === gameId);
-        if (game && game.players.length < 2) {
-            game.players.push({ id: socket.id });
-            socket.join(gameId);
-            io.to(gameId).emit('gameUpdate', game);
-            io.emit('gameList', games);
-            socket.emit('roomJoined', { gameId });
+    socket.on('joinGame', ({ gameId }) => {//when recive joinGame sign
+        const game = games.find(g => g.id === gameId);//loop to find a gamId in games arry
+        if (game && game.players.length < 2) {//ตรวจสอบว่า game not null and player in room is less then 2
+            game.players.push({ id: socket.id });//เพิ่มผู้เล่นใหม่เข้าไปใน arry ที่มีอยู่แล้ว
+            socket.join(gameId);//join who are a signal to the room by id GameId 
+            io.to(gameId).emit('gameUpdate', game);//ส่งสัญญาณไปเฉพาะกับ user ที่อยู่ในห้องร่วมกัน
+            io.emit('gameList', games);//ส่งข้อมูลให้ทุกคน
+            socket.emit('roomJoined', { gameId });//send signal roomJoin
+            console.log(`Player ${socket.id} joined game ${gameId}`);//print player and id room in terminal
         }
     });
 
