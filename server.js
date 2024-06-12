@@ -15,7 +15,7 @@ app.use(express.static('public')); // เสิร์ฟไฟล์สแตต
 
 // เส้นทางสำหรับหน้าหลัก
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/lobby.html'); // หรือไฟล์ HTML ที่คุณต้องการ
+    res.sendFile(__dirname + '/public/lobbyRoom.html'); // หรือไฟล์ HTML ที่คุณต้องการ
 });
 
 io.on('connection', (socket) => {// io.on คือ เมื่อการตอบกลับจากทุกคนที่ต่อกับ server

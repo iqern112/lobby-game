@@ -7,7 +7,7 @@ document.getElementById('new-game-btn').addEventListener('click', () => {
 
 socket.on('gameCreated', (gameId) => {//รอรับสัญญาณจากเซิฟเวอร์ คำว่า gameCreated และรับตัวแปร gameId
     //conGameId = gameId;//ให้ไอดีที่ส่งมาเก็บในตัวแปรที่เราสร้างขึ้น
-    window.location.href = `/game.html?gameId=${gameId}`;
+    window.location.href = `/gameRoom.html?gameId=${gameId}`;
 });
 
 socket.on('gameList', (games) => {
@@ -23,7 +23,7 @@ socket.on('gameList', (games) => {
             const joinButton = document.createElement('button');//สร้างปุ่ม join
             joinButton.innerText = 'Join';
             joinButton.addEventListener('click', () => {
-                window.location.href = `/game.html?gameId=${game.id}`;
+                window.location.href = `/gameRoom.html?gameId=${game.id}`;
             });
             gameDiv.appendChild(joinButton);
         } else {
